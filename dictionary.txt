@@ -1,0 +1,59 @@
+Words	Meanings
+apple	quả táo
+bird	con chim
+cow	con bò
+duck	con vịt
+cat	con mèo
+dog	con chó
+house	ngôi nhà
+book	cuốn sách
+computer	máy tính
+keyboard	bàn phím
+mouse	chuột
+pen	bút
+pencil	bút chì
+ink	mực
+bottle	lọ
+pencil sharpener	gọt bút chì
+pencil case	hộp bút
+notebook	vở ghi
+school	trường học
+class	lớp học
+desk	bàn học
+chair	ghế
+present	món quà	
+present	thuyết trình	
+present	hiện tại	
+pearl	ngọc trai	
+biscuit	bánh quy (Anh)	
+cookie	bánh quy (Mỹ)	
+religion	tôn giáo	
+answer (verb)	trả lời	
+answer (noun)	câu trả lời	love 	tình yêu	
+date (n)	ngày	
+date (v)	hẹn hò	
+swim	bơi lội	
+pool	hồ	
+swan	thiên nga	
+alligator	cá sấu
+envy	đố kỵ	
+knight	kỵ sĩ	
+king	nhà vua	
+queen	hoàng hậu	
+clown	hề	
+circus	gánh xiếc	
+monkey	khỉ	
+red	đỏ	
+green	xanh lá	
+blue	xanh dương	
+orange	cam	
+white	trắng	
+black	đen	
+yellow	vàng	
+athlete	vận động viên	
+sport	môn thể thao	
+football	bóng đá (Anh)	
+football	bóng bầu dục (Mỹ)	
+gem	đá quý	
+crystal	pha lê	
+diamond	kim cương	
