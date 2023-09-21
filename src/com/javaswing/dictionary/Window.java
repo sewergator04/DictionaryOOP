@@ -17,11 +17,11 @@ public class Window extends javax.swing.JFrame {
      * Creates new form Window
      */
     private final TxtFileReader fileHandler = new TxtFileReader();
-    
+    private final String filePath = "C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_release\\dictionary.txt";
     public Window() {
         initComponents();
         try {
-            DefaultTableModel tableModel = fileHandler.readTxtFile("C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_release\\dictionary.txt");
+            DefaultTableModel tableModel = fileHandler.readTxtFile(filePath);
             jTable1.setModel(tableModel);
         } catch (IOException e) {
             
@@ -132,14 +132,14 @@ public class Window extends javax.swing.JFrame {
 
     private void AddWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWordsActionPerformed
         // TODO add your handling code here:
-        AddWordsWindows addwin = new AddWordsWindows();
+        AddWordsWindows addwin = new AddWordsWindows(filePath);
         addwin.setVisible(true);
     }//GEN-LAST:event_AddWordsActionPerformed
 
     private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshButtonActionPerformed
         // TODO add your handling code here:
         try {
-            DefaultTableModel tableModel = fileHandler.readTxtFile("C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_release\\dictionary.txt");
+            DefaultTableModel tableModel = fileHandler.readTxtFile(filePath);
             jTable1.setModel(tableModel);
         } catch (IOException e) {
             

@@ -7,13 +7,17 @@ import javax.swing.table.DefaultTableModel;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import javax.swing.JOptionPane;
 /*
  *
  * @author Admin
  */
 public class TxtFileEditor {
-    public void AddWords(DefaultTableModel model, String fileName) {
+    private final String fileName;
+    public TxtFileEditor(String fileName) {
+        this.fileName = fileName;
+}
+    public void AddWords(DefaultTableModel model) {
         try {
             FileWriter fileWriter = new FileWriter(fileName, true);
             // Iterate through the rows of the JTable and write data to the file
@@ -36,8 +40,7 @@ public class TxtFileEditor {
             }
                 }
             }
-            PopUpWindowSuccess successwin = new PopUpWindowSuccess();
-            successwin.setVisible(true);
+            JOptionPane.showMessageDialog(null,"Add words successfully!","Success!", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
         }

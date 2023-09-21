@@ -57,3 +57,19 @@ football	bóng bầu dục (Mỹ)
 gem	đá quý	
 crystal	pha lê	
 diamond	kim cương	
+common	phổ biến	
+popular	nổi tiếng	
+delete	xóa	
+space	khoảng trống	
+space	không gian	
+alien	người ngoài hành tinh	
+object	vật thể	
+car	ô tô
+office	văn phòng	
+stationery	văn phòng phẩm	
+panda	gấu trúc	
+address	địa chỉ	
+head	đầu	
+shoulder	vai	
+arm	tay	
+strawberry	dâu tây	
