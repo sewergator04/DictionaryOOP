@@ -88,7 +88,7 @@
     </Container>
     <Component class="javax.swing.JTextField" name="SearchBar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Search for words or meaning..."/>
+        <Property name="toolTipText" type="java.lang.String" value="Search for word or meaning..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SearchBarActionPerformed"/>

@@ -13,9 +13,9 @@ public class AddWordsWindows extends javax.swing.JFrame {
     /**
      * Creates new form AddWordsWindows
      */
-    private final TxtFileEditor fileeditor;
-    public AddWordsWindows(String fileName) {
-        fileeditor = new TxtFileEditor(fileName);
+    DictionaryManagement manager;
+    public AddWordsWindows(DictionaryManagement manager) {
+        this.manager = manager;
         initComponents();
     }
 
@@ -64,7 +64,8 @@ public class AddWordsWindows extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("                                     Type the words and their meanings below ");
+        jTextField1.setEditable(false);
+        jTextField1.setText("                                        Type words and their meanings below ");
         jTextField1.setEnabled(false);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +102,7 @@ public class AddWordsWindows extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        fileeditor.AddWords((DefaultTableModel)jTable1.getModel());
+        manager.AddWords((DefaultTableModel)jTable1.getModel());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

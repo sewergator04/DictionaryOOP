@@ -73,3 +73,43 @@ head	đầu
 shoulder	vai	
 arm	tay	
 strawberry	dâu tây	
+happy	hạnh phúc	
+sad	buồn	
+angry	giận dữ	
+confused	bối rối	
+personal	cá nhân (tính từ)	
+individual	cá nhân (danh từ)	
+private	tuyệt mật	
+public	công khai	
+pineapple	quả thơm	
+star	ngôi sao	
+comic	truyện tranh	
+moon	mặt trăng	
+sun	mặt trời	
+autumn	mùa thu	
+summer	mùa hè	
+spring	mùa xuân	
+winter	mùa đông	
+spring	suối nguồn	
+jester	chú hề (hoàng gia)	
+clown	chú hề	
+listen	lắng nghe	
+milk	sữa	
+paper	tờ giấy	
+crow	con quạ	
+eclipse	nhật thực	
+frog	con ếch	
+knife	con dao	
+drum	cái trống	
+phone	điện thoại	
+plushie	thú nhồi bông	
+stuff (v)	nhồi nhét	
+candy	kẹo	
+socks	đôi tất	
+holiday	kì nghỉ	
+weekends	các ngày cuối tuần	
+morning	buổi sáng	
+afternoon	buổi chiều	
+distract	phân tâm	
+penny	đồng xu	
+collection	bộ sưu tập	

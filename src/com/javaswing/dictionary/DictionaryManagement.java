@@ -3,23 +3,52 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.javaswing.dictionary;
-import javax.swing.table.DefaultTableModel;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-/*
+import javax.swing.table.DefaultTableModel;
+
+/**
  *
  * @author Admin
  */
-public class TxtFileEditor {
-    private final String fileName;
-    public TxtFileEditor(String fileName) {
-        this.fileName = fileName;
-}
+public class DictionaryManagement {
+    private final String filePath;
+    
+    public DictionaryManagement(String filePath) {
+        this.filePath = filePath;
+    }
+    
+    public DefaultTableModel readTxtFile() {
+        
+        DefaultTableModel model = new DefaultTableModel();
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            
+            String line;
+            if ((line = reader.readLine()) != null) {
+                String[] columnNames = line.split("\t"); 
+                model.setColumnIdentifiers(columnNames);
+            }
+
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split("\t"); 
+                model.addRow(data);
+            }
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        
+        return model;
+    }
+    
     public void AddWords(DefaultTableModel model) {
         try {
-            FileWriter fileWriter = new FileWriter(fileName, true);
+            FileWriter fileWriter = new FileWriter(filePath, true);
             // Iterate through the rows of the JTable and write data to the file
             try (BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
                 // Iterate through the rows of the JTable and write data to the file
@@ -45,4 +74,5 @@ public class TxtFileEditor {
             System.err.println("Error: " + e.getMessage());
         }
     }
+    
 }

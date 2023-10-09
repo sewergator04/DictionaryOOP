@@ -96,7 +96,8 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="                                     Type the words and their meanings below "/>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="                                        Type words and their meanings below "/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>

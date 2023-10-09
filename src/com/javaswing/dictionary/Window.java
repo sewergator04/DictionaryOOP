@@ -4,7 +4,6 @@
  */
 package com.javaswing.dictionary;
 import javax.swing.table.DefaultTableModel;
-import java.io.IOException;
 import javax.swing.table.TableRowSorter;
 import javax.swing.RowFilter;
 /**
@@ -16,16 +15,13 @@ public class Window extends javax.swing.JFrame {
     /**
      * Creates new form Window
      */
-    private final TxtFileReader fileHandler = new TxtFileReader();
+    private final DictionaryManagement manager;
     private final String filePath = "C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_release\\dictionary.txt";
     public Window() {
+        manager = new DictionaryManagement(filePath);
         initComponents();
-        try {
-            DefaultTableModel tableModel = fileHandler.readTxtFile(filePath);
-            jTable1.setModel(tableModel);
-        } catch (IOException e) {
-            
-        }
+        DefaultTableModel tableModel = manager.readTxtFile();
+        jTable1.setModel(tableModel);
     }
     
     /**
@@ -57,7 +53,7 @@ public class Window extends javax.swing.JFrame {
         jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
-        SearchBar.setText("Search for words or meaning...");
+        SearchBar.setToolTipText("Search for word or meaning...");
         SearchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchBarActionPerformed(evt);
@@ -132,18 +128,14 @@ public class Window extends javax.swing.JFrame {
 
     private void AddWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWordsActionPerformed
         // TODO add your handling code here:
-        AddWordsWindows addwin = new AddWordsWindows(filePath);
+        AddWordsWindows addwin = new AddWordsWindows(manager);
         addwin.setVisible(true);
     }//GEN-LAST:event_AddWordsActionPerformed
 
     private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshButtonActionPerformed
         // TODO add your handling code here:
-        try {
-            DefaultTableModel tableModel = fileHandler.readTxtFile(filePath);
-            jTable1.setModel(tableModel);
-        } catch (IOException e) {
-            
-        }
+        DefaultTableModel tableModel = manager.readTxtFile();
+        jTable1.setModel(tableModel);
     }//GEN-LAST:event_RefreshButtonActionPerformed
 
     /**
