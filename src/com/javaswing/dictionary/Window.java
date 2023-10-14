@@ -17,8 +17,10 @@ public class Window extends javax.swing.JFrame {
      */
     private final DictionaryManagement manager;
     private final String filePath = "C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_release\\dictionary.txt";
+    private final Games gameManager;
     public Window() {
         manager = new DictionaryManagement(filePath);
+        gameManager = new Games();
         initComponents();
         DefaultTableModel tableModel = manager.readTxtFile();
         jTable1.setModel(tableModel);
@@ -38,6 +40,7 @@ public class Window extends javax.swing.JFrame {
         SearchBar = new javax.swing.JTextField();
         AddWords = new javax.swing.JButton();
         RefreshButton = new javax.swing.JButton();
+        GameButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dictionary");
@@ -79,6 +82,13 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
+        GameButton.setText("Game");
+        GameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GameButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,8 +104,10 @@ public class Window extends javax.swing.JFrame {
                         .addGap(0, 4, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RefreshButton)
-                        .addGap(30, 30, 30))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(GameButton)
+                            .addComponent(RefreshButton))
+                        .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,12 +115,15 @@ public class Window extends javax.swing.JFrame {
                 .addContainerGap(73, Short.MAX_VALUE)
                 .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(AddWords)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RefreshButton))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RefreshButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GameButton)
+                        .addGap(71, 71, 71))))
         );
 
         pack();
@@ -137,6 +152,11 @@ public class Window extends javax.swing.JFrame {
         DefaultTableModel tableModel = manager.readTxtFile();
         jTable1.setModel(tableModel);
     }//GEN-LAST:event_RefreshButtonActionPerformed
+
+    private void GameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GameButtonActionPerformed
+        // TODO add your handling code here:
+        gameManager.openMCGame();
+    }//GEN-LAST:event_GameButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,6 +195,7 @@ public class Window extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddWords;
+    private javax.swing.JButton GameButton;
     private javax.swing.JButton RefreshButton;
     private javax.swing.JTextField SearchBar;
     private javax.swing.JScrollPane jScrollPane1;
