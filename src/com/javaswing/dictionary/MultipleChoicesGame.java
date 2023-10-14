@@ -27,6 +27,7 @@ public class MultipleChoicesGame extends javax.swing.JFrame {
      */
     public MultipleChoicesGame(String folderPath) {
         initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         questions = new ArrayList<>();
         choices = new ArrayList<>();
         choices.add(jRadioButton1);
