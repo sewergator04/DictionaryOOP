@@ -113,3 +113,6 @@ afternoon	buổi chiều
 distract	phân tâm	
 penny	đồng xu	
 collection	bộ sưu tập	
+evil	xấu xa	
+wicked	xấu xa	
+cunning	xảo quyệt	
