@@ -1,0 +1,24 @@
+name: Run Source Code
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '20'  # Adjust the Java version as needed
+
+      - name: Build and run source code
+        run: |
+          ./gradlew run
+
