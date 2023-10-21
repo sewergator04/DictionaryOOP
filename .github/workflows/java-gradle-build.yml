@@ -18,15 +18,15 @@ jobs:
         with:
           java-version: '20'  # Adjust the Java version as needed
           distribution: 'adopt'
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
       - name: Build and run source code
         run: |
-          javac src/main/java/*.java
+          javac src/main/java/DictionaryManagement.java
+          javac src/main/java/AddWordsWindows.java
+          javac src/main/java/MCQuestion.java
+          javac src/main/java/MultipleChoicesGame.java
+          javac src/main/java/Games.java
+          javac src/main/java/Window.java
           java -cp src/main/java Window
 
 
