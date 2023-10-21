@@ -20,7 +20,7 @@ jobs:
           distribution: 'adopt'
       - name: Build and run source code
         run: |
-          javac src/main/java/Window.java
+          javac src/main/java/*.java
           java -cp src/main/java Window
 
 
