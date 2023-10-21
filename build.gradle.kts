@@ -6,10 +6,8 @@
  */
 
 plugins {
-  kotlin("jvm") version "1.9.10"
   java
   application
-  distribution
 }
 application {
   mainClass.set("Window")
@@ -22,10 +20,4 @@ dependencies {
   implementation("com.google.code.gson:gson:2.9.0")
   implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.0")
   implementation("com.microsoft.cognitiveservices.speech:client-jar-sdk:1.14.0")
-
-}
-tasks.register<JavaExec>("run") {
-    dependsOn("classes")
-    main = mainClass.get()
-    classpath = sourceSets["main"].runtimeClasspath
 }
