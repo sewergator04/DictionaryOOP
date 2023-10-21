@@ -19,4 +19,6 @@ dependencies {
   implementation("com.squareup.okhttp3:okhttp:4.10.0")
   implementation("com.google.code.gson:gson:2.9.0")
   implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.0")
+  implementation("com.microsoft.cognitiveservices.speech:client-jar-sdk:1.14.0")
+
 }
