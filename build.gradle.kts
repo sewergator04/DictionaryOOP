@@ -9,6 +9,7 @@ plugins {
   kotlin("jvm") version "1.9.10"
   java
   application
+  distribution
 }
 application {
   mainClass.set("Window")
