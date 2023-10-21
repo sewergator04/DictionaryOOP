@@ -18,7 +18,10 @@ jobs:
         with:
           java-version: '20'  # Adjust the Java version as needed
           distribution: 'adopt'
-
+          
+      - name: Make ./gradlew executable
+        run: chmod +x ./gradlew
+          
       - name: Build and run source code
         run: |
           ./gradlew run
