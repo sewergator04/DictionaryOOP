@@ -9,12 +9,5 @@
  * @author Admin
  */
 public class APIs {
-    private final TranslatorWindow translator;
-    public APIs() {
-        translator = new TranslatorWindow();
-    }
-    
-    public void openTranslator() {
-        translator.setVisible(true);
-    }
+
 }
