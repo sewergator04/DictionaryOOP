@@ -9,7 +9,7 @@
  * @author Admin
  */
 public class Games {
-    private final String MCGamePath = "C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_release\\MCQuestions";
+    private final String MCGamePath = "C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_ANT\\MCQuestions";
     private final MultipleChoicesGame MCGame;
     
     public Games() {
