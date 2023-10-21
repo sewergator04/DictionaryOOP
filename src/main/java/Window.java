@@ -215,12 +215,6 @@ public class Window extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddWords;
-    private javax.swing.JButton GameButton;
-    private javax.swing.JButton RefreshButton;
-    private javax.swing.JTextField SearchBar;
-    private javax.swing.JButton TranslatorButton;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+
     // End of variables declaration//GEN-END:variables
 }
