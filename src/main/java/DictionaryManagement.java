@@ -11,16 +11,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 /**
  *
  * @author Admin
  */
 public class DictionaryManagement {
     private final String filePath;
-    
-    public DictionaryManagement(String filePath) {
+    private int indexes = 0;
+    private final ArrayList<String> definitions;
+    private final HashMap<String, Integer> definitionIndex;
+    public DictionaryManagement(String filePath, ArrayList<String> definitions, HashMap<String, Integer> definitionIndex) {
         this.filePath = filePath;
+        this.definitions = definitions;
+        this.definitionIndex = definitionIndex;
     }
     
     public DefaultTableModel readTxtFile() {
@@ -30,14 +35,22 @@ public class DictionaryManagement {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             
             String line;
-            if ((line = reader.readLine()) != null) {
-                String[] columnNames = line.split("\t"); 
-                model.setColumnIdentifiers(columnNames);
-            }
-
+            
+            model.addColumn("Words");
+            
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split("\t"); 
-                model.addRow(data);
+                
+                String[] data = line.split("\t");
+                if (data.length < 2) {
+                    System.out.println("Exception at line " + indexes);
+                }
+                definitionIndex.put(data[0], indexes);
+                if (data.length > 0) {
+                    model.addRow(new Object[]{data[0]});
+                }
+                data[1] = data[1].replace("\\n", "\n");
+                definitions.add(data[1]);
+                indexes++;
             }
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
@@ -65,8 +78,11 @@ public class DictionaryManagement {
                         }
                     }
                     if (!isEmptyRow) {
-                bufferedWriter.newLine(); // Add a newline after each non-empty row
-            }
+                        bufferedWriter.newLine(); // Add a newline after each non-empty row
+                        definitions.add((String) model.getValueAt(row, 1));
+                        definitionIndex.put((String) model.getValueAt(row,0), indexes);
+                        indexes++;
+                    }
                 }
             }
             JOptionPane.showMessageDialog(null,"Add words successfully!","Success!", JOptionPane.INFORMATION_MESSAGE);

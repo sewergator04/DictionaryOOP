@@ -34,57 +34,67 @@ public class TranslatorWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
+        TransVietToEn = new javax.swing.JButton();
+        TransEnToViet = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
-        translate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Translator");
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jTextField1.setText("Type your Vietnamese sentences here...");
+        jTextField1.setToolTipText("Type your sentences here...");
 
-        jTextField2.setEditable(false);
-
-        translate.setText("Translate");
-        translate.addActionListener(new java.awt.event.ActionListener() {
+        TransVietToEn.setText("Translate Vietnamese to English");
+        TransVietToEn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                translateActionPerformed(evt);
+                TransVietToEnActionPerformed(evt);
             }
         });
+
+        TransEnToViet.setText("Translate English to Vietnamese");
+        TransEnToViet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TransEnToVietActionPerformed(evt);
+            }
+        });
+
+        jTextField2.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1))
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(translate)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGap(101, 101, 101)
+                .addComponent(TransVietToEn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                .addComponent(TransEnToViet)
+                .addGap(116, 116, 116))
+            .addComponent(jTextField1)
+            .addComponent(jTextField2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(translate)
-                .addGap(19, 19, 19)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TransVietToEn)
+                    .addComponent(TransEnToViet))
+                .addGap(18, 18, 18)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(337, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void translateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translateActionPerformed
+    private void TransVietToEnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransVietToEnActionPerformed
         // TODO add your handling code here:
         Vietnamese = jTextField1.getText();
         try {
-            English = translator.Post(Vietnamese);
+            English = translator.EnToViet(Vietnamese);
             English = translator.prettify(English);
             English = translator.JsonParsing(English);
             jTextField2.setText(English);
@@ -92,47 +102,30 @@ public class TranslatorWindow extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-    }//GEN-LAST:event_translateActionPerformed
+    }//GEN-LAST:event_TransVietToEnActionPerformed
+
+    private void TransEnToVietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransEnToVietActionPerformed
+        // TODO add your handling code here:
+        English = jTextField1.getText();
+        try {
+            Vietnamese = translator.VietToEn(English);
+            Vietnamese = translator.prettify(Vietnamese);
+            Vietnamese = translator.JsonParsing(Vietnamese);
+            jTextField2.setText(Vietnamese);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_TransEnToVietActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TranslatorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TranslatorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TranslatorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TranslatorWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TranslatorWindow().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton TransEnToViet;
+    private javax.swing.JButton TransVietToEn;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JButton translate;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,7 +21,7 @@ public class Translator {
     OkHttpClient client = new OkHttpClient();
 
     // This function performs a POST request.
-    public String Post(String VietText) throws IOException {
+    public String EnToViet(String VietText) throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType,
                 "[{\"Text\": \"" + VietText + "\"}]");
@@ -36,7 +36,23 @@ public class Translator {
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
-
+    
+    public String VietToEn(String EnText) throws IOException {
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType,
+                "[{\"Text\": \"" + EnText + "\"}]");
+        Request request = new Request.Builder()
+                .url("https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=en&to=vi")
+                .post(body)
+                .addHeader("Ocp-Apim-Subscription-Key", key)
+                // location required if you're using a multi-service or regional (not global) resource.
+                .addHeader("Ocp-Apim-Subscription-Region", location)
+                .addHeader("Content-type", "application/json")
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+    
     // This function prettifies the json response.
     public String prettify(String json_text) {
         JsonParser parser = new JsonParser();
