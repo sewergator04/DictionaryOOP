@@ -3,10 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-import java.io.IOException;
+
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.RowFilter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 /**
  *
  * @author Admin
@@ -17,16 +22,41 @@ public class Window extends javax.swing.JFrame {
      * Creates new form Window
      */
     private final DictionaryManagement manager;
-    private final String filePath = "C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_ANT\\dictionary.txt";
+    private final String filePath = "D:\\dictionary_Gradle\\dictionary.txt";
     private final Games gameManager;
     private final APIs apis;
+    private final ArrayList<String> definitions;
+    private final HashMap<String, Integer> definitionIndex;
     public Window() {
-        manager = new DictionaryManagement(filePath);
+        definitionIndex = new HashMap<>();
+        definitions = new ArrayList<>();
+        manager = new DictionaryManagement(filePath, definitions, definitionIndex);
         gameManager = new Games();
         apis = new APIs();
         initComponents();
         DefaultTableModel tableModel = manager.readTxtFile();
         jTable1.setModel(tableModel);
+        jTable1.setDefaultEditor(Object.class, null);
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Detect double-click (you can change to 1 for single-click)
+                int selectedRow = jTable1.getSelectedRow();
+
+            // You can open a new window or perform any action here
+            // For example, open a new window with data from the selected row
+                if (selectedRow != -1) {
+                    Object rowData = jTable1.getValueAt(selectedRow, 0);
+                    DefinitionWindow defwin = new DefinitionWindow((String) rowData, definitions.get(definitionIndex.get(rowData.toString())));
+                    defwin.setVisible(true);
+            }
+        }
+    }
+});
+
+        
+        //jTable1.getColumnModel().getColumn(1).setCellRenderer(new MultiLineTableCellRenderer());
+        
     }
     
     /**
@@ -48,6 +78,7 @@ public class Window extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dictionary");
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,15 +88,9 @@ public class Window extends javax.swing.JFrame {
 
             }
         ));
-        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         SearchBar.setToolTipText("Search for word or meaning...");
-        SearchBar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchBarActionPerformed(evt);
-            }
-        });
         SearchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 SearchBarKeyReleased(evt);
@@ -105,47 +130,40 @@ public class Window extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                     .addComponent(SearchBar))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(AddWords)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(GameButton)
-                            .addComponent(RefreshButton)
-                            .addComponent(TranslatorButton))
-                        .addGap(19, 19, 19))))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TranslatorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AddWords, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(AddWords)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RefreshButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TranslatorButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(GameButton)
-                        .addGap(71, 71, 71))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(RefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(TranslatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(GameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(AddWords, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SearchBarActionPerformed
 
     private void SearchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBarKeyReleased
         // TODO add your handling code here:
@@ -153,6 +171,7 @@ public class Window extends javax.swing.JFrame {
         TableRowSorter<DefaultTableModel> tabl1 = new TableRowSorter<>(tabl);
         jTable1.setRowSorter(tabl1);
         tabl1.setRowFilter(RowFilter.regexFilter(SearchBar.getText()));
+       
     }//GEN-LAST:event_SearchBarKeyReleased
 
     private void AddWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWordsActionPerformed
@@ -165,6 +184,8 @@ public class Window extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel tableModel = manager.readTxtFile();
         jTable1.setModel(tableModel);
+        //jTable1.getColumnModel().getColumn(1).setCellRenderer(new MultiLineTableCellRenderer());
+        
     }//GEN-LAST:event_RefreshButtonActionPerformed
 
     private void GameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GameButtonActionPerformed
@@ -177,6 +198,18 @@ public class Window extends javax.swing.JFrame {
         apis.openTranslator();
     }//GEN-LAST:event_TranslatorButtonActionPerformed
 
+/*static class MultiLineTableCellRenderer extends DefaultTableCellRenderer {
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        if (c instanceof JLabel && value != null) {
+            JLabel label = (JLabel) c;
+            label.setText("<html>" + value.toString().replace("\\n", "<br>"));
+        }
+        return c;
+    }
+}*/
+    
     /**
      * @param args the command line arguments
      */
@@ -204,7 +237,6 @@ public class Window extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -213,7 +245,8 @@ public class Window extends javax.swing.JFrame {
         });
     }
     
-
+      
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddWords;
     private javax.swing.JButton GameButton;
@@ -224,3 +257,5 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
+
+
