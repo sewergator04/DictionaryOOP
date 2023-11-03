@@ -47,7 +47,7 @@ public class Window extends javax.swing.JFrame {
             // For example, open a new window with data from the selected row
                 if (selectedRow != -1) {
                     Object rowData = jTable1.getValueAt(selectedRow, 0);
-                    DefinitionWindow defwin = new DefinitionWindow((String) rowData, definitions.get(definitionIndex.get(rowData.toString())));
+                    DefinitionWindow defwin = new DefinitionWindow((String) rowData, definitions.get(definitionIndex.get(rowData.toString())), apis);
                     defwin.setVisible(true);
             }
         }

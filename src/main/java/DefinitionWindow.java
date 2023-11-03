@@ -13,11 +13,15 @@ public class DefinitionWindow extends javax.swing.JFrame {
     /**
      * Creates new form DefinitionWindow
      */
-    public DefinitionWindow(String Word, String Meaning) {
+    APIs textToSpeech;
+    String word;
+    public DefinitionWindow(String word, String Meaning, APIs apis) {
         initComponents();
+        textToSpeech = apis;
+        this.word = word;
         Font customFont = new Font("Arial", Font.PLAIN, 20);
         jTextArea1.setFont(customFont);
-        String content = Word + "\n" + "\n" + Meaning;
+        String content = word + "\n" + "\n" + Meaning;
         jTextArea1.setText(content);
     }
 
@@ -33,10 +37,11 @@ public class DefinitionWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         closeButton = new javax.swing.JButton();
+        pronounce = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Definition");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(860, 530));
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -50,28 +55,39 @@ public class DefinitionWindow extends javax.swing.JFrame {
             }
         });
 
+        pronounce.setText("Hear pronunciation");
+        pronounce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pronounceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(311, 311, 311)
-                        .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(closeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                    .addComponent(pronounce, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(closeButton)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(pronounce)
+                        .addGap(29, 29, 29)
+                        .addComponent(closeButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
@@ -82,6 +98,11 @@ public class DefinitionWindow extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
+    private void pronounceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pronounceActionPerformed
+        // TODO add your handling code here:
+        textToSpeech.pronounce(word);
+    }//GEN-LAST:event_pronounceActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -91,5 +112,6 @@ public class DefinitionWindow extends javax.swing.JFrame {
     private javax.swing.JButton closeButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton pronounce;
     // End of variables declaration//GEN-END:variables
 }
