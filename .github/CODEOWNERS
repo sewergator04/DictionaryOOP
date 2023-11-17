@@ -1,3 +1,5 @@
-# Assign "sewergator04" as the owner of the entire repository
+# Assign "sewergator04" as the owner of the entire repository by default
 * @sewergator04
 
+# Assign "NguyenTienTao" as the owner of HangmanbyNTT package
+src/main/java/HangmanbyNTT @NguyenTienTao @sewergator04

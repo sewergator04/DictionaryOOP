@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-
+import HangmanbyNTT.RunGame;
 /**
  *
  * @author Admin
  */
 public class Games {
-    private final String MCGamePath = "C:\\Users\\Admin\\Documents\\NetBeansProjects\\dictionary_ANT\\MCQuestions";
+    private final String MCGamePath = "C:\\Users\\Admin\\Documents\\GitHub\\DictionaryOOP\\MCQuestions";
     private final MultipleChoicesGame MCGame;
     
     public Games() {
@@ -18,5 +18,9 @@ public class Games {
     
     public void openMCGame() {
         MCGame.setVisible(true);
+    }
+    
+    public void openHangman() {
+        new RunGame();
     }
 }

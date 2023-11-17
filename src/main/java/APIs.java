@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 /*
@@ -12,15 +13,35 @@ import java.util.concurrent.ExecutionException;
  * @author Admin
  */
 public class APIs {
-    private final TranslatorWindow translator;
+    private final Translator translator;
     private final SpeechSynthesis synthesizer;
     public APIs() {
-        translator = new TranslatorWindow();
+        translator = new Translator();
         synthesizer = new SpeechSynthesis();
     }
     
-    public void openTranslator() {
-        translator.setVisible(true);
+    public String transVietToEn(String vietText) {
+        String English = "";
+        try {
+            English = translator.EnToViet(vietText);
+            English = translator.prettify(English);
+            English = translator.JsonParsing(English);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return English;
+    }
+    
+    public String transEnToViet(String engText) {
+        String Vietnamese = "";
+        try {
+            Vietnamese = translator.VietToEn(engText);
+            Vietnamese = translator.prettify(Vietnamese);
+            Vietnamese = translator.JsonParsing(Vietnamese);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return Vietnamese;
     }
     
     public void pronounce(String englishText) {
