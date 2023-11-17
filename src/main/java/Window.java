@@ -5,6 +5,7 @@
 
 
 
+import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.RowFilter;
@@ -12,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Admin
@@ -22,11 +24,12 @@ public class Window extends javax.swing.JFrame {
      * Creates new form Window
      */
     private final DictionaryManagement manager;
-    private final String filePath = "D:\\dictionary_Gradle\\dictionary.txt";
+    private final String filePath = "C:\\Users\\Admin\\Documents\\GitHub\\DictionaryOOP\\dictionary.txt";
     private final Games gameManager;
     private final APIs apis;
     private final ArrayList<String> definitions;
     private final HashMap<String, Integer> definitionIndex;
+    private String currentWord;
     public Window() {
         definitionIndex = new HashMap<>();
         definitions = new ArrayList<>();
@@ -34,29 +37,25 @@ public class Window extends javax.swing.JFrame {
         gameManager = new Games();
         apis = new APIs();
         initComponents();
+        Font customFont = new Font("Arial", Font.PLAIN, 20);
+        meanings.setFont(customFont);
         DefaultTableModel tableModel = manager.readTxtFile();
-        jTable1.setModel(tableModel);
-        jTable1.setDefaultEditor(Object.class, null);
-        jTable1.addMouseListener(new MouseAdapter() {
+        words.setModel(tableModel);
+        words.setDefaultEditor(Object.class, null);
+        words.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) { // Detect double-click (you can change to 1 for single-click)
-                int selectedRow = jTable1.getSelectedRow();
-
-            // You can open a new window or perform any action here
-            // For example, open a new window with data from the selected row
+                if (e.getClickCount() == 2) { 
+                int selectedRow = words.getSelectedRow();
                 if (selectedRow != -1) {
-                    Object rowData = jTable1.getValueAt(selectedRow, 0);
-                    DefinitionWindow defwin = new DefinitionWindow((String) rowData, definitions.get(definitionIndex.get(rowData.toString())), apis);
-                    defwin.setVisible(true);
+                    Object rowData = words.getValueAt(selectedRow, 0);
+                    String content = (String) rowData + "\n" + "\n" + definitions.get(definitionIndex.get(rowData.toString()));
+                    currentWord = (String) rowData;
+                    meanings.setText(content);
             }
         }
-    }
+    }     
 });
-
-        
-        //jTable1.getColumnModel().getColumn(1).setCellRenderer(new MultiLineTableCellRenderer());
-        
     }
     
     /**
@@ -68,19 +67,63 @@ public class Window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        UI = new javax.swing.JPanel();
+        dictionary = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        SearchBar = new javax.swing.JTextField();
-        AddWords = new javax.swing.JButton();
-        RefreshButton = new javax.swing.JButton();
-        GameButton = new javax.swing.JButton();
-        TranslatorButton = new javax.swing.JButton();
+        words = new javax.swing.JTable();
+        searchBar = new javax.swing.JTextField();
+        editButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
+        gameButton = new javax.swing.JButton();
+        translatorButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        meanings = new javax.swing.JTextArea();
+        spellingButton = new javax.swing.JButton();
+        editOptions = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        removeWordsButton = new javax.swing.JButton();
+        addWordsButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        addWordWindow = new javax.swing.JPanel();
+        addButton = new javax.swing.JButton();
+        newWord = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        newMeaning = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        removeWordWindow = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        editTable = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        removeButton = new javax.swing.JButton();
+        editSearchBar = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        translator = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        engTransButton = new javax.swing.JButton();
+        vietTransButton = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        vietText = new javax.swing.JTextArea();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        engText = new javax.swing.JTextArea();
+        gameCenter = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        hangmanButton = new javax.swing.JButton();
+        MCButton = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dictionary");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(850, 650));
+        setPreferredSize(new java.awt.Dimension(850, 650));
+        getContentPane().setLayout(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        UI.setLayout(new java.awt.CardLayout());
+
+        words.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -88,127 +131,610 @@ public class Window extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(words);
 
-        SearchBar.setToolTipText("Search for word or meaning...");
-        SearchBar.addKeyListener(new java.awt.event.KeyAdapter() {
+        searchBar.setToolTipText("Search for word or meaning...");
+        searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                SearchBarKeyReleased(evt);
+                searchBarKeyReleased(evt);
             }
         });
 
-        AddWords.setLabel("Add more words...");
-        AddWords.addActionListener(new java.awt.event.ActionListener() {
+        editButton.setText("Edit");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddWordsActionPerformed(evt);
+                editButtonActionPerformed(evt);
             }
         });
 
-        RefreshButton.setText("Refresh");
-        RefreshButton.addActionListener(new java.awt.event.ActionListener() {
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RefreshButtonActionPerformed(evt);
+                refreshButtonActionPerformed(evt);
             }
         });
 
-        GameButton.setText("Game");
-        GameButton.addActionListener(new java.awt.event.ActionListener() {
+        gameButton.setText("Game");
+        gameButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GameButtonActionPerformed(evt);
+                gameButtonActionPerformed(evt);
             }
         });
 
-        TranslatorButton.setText("Translator");
-        TranslatorButton.addActionListener(new java.awt.event.ActionListener() {
+        translatorButton.setText("Translator");
+        translatorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TranslatorButtonActionPerformed(evt);
+                translatorButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
-                    .addComponent(SearchBar))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TranslatorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(RefreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(GameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AddWords, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+        meanings.setEditable(false);
+        meanings.setColumns(20);
+        meanings.setRows(5);
+        jScrollPane2.setViewportView(meanings);
+
+        spellingButton.setText("Hear pronunciation");
+        spellingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spellingButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dictionaryLayout = new javax.swing.GroupLayout(dictionary);
+        dictionary.setLayout(dictionaryLayout);
+        dictionaryLayout.setHorizontalGroup(
+            dictionaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dictionaryLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(dictionaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dictionaryLayout.createSequentialGroup()
+                        .addComponent(refreshButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(translatorButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(gameButton)
+                        .addGap(427, 427, 427))
+                    .addGroup(dictionaryLayout.createSequentialGroup()
+                        .addGroup(dictionaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(dictionaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(spellingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        dictionaryLayout.setVerticalGroup(
+            dictionaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dictionaryLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(dictionaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(refreshButton)
+                    .addComponent(editButton)
+                    .addComponent(translatorButton)
+                    .addComponent(gameButton))
+                .addGap(26, 26, 26)
+                .addGroup(dictionaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spellingButton))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(dictionaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        UI.add(dictionary, "card3");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Choose an option");
+
+        removeWordsButton.setText("Remove words");
+        removeWordsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeWordsButtonActionPerformed(evt);
+            }
+        });
+
+        addWordsButton.setText("Add words");
+        addWordsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addWordsButtonActionPerformed(evt);
+            }
+        });
+
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout editOptionsLayout = new javax.swing.GroupLayout(editOptions);
+        editOptions.setLayout(editOptionsLayout);
+        editOptionsLayout.setHorizontalGroup(
+            editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editOptionsLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(addWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+                .addComponent(removeWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
+            .addGroup(editOptionsLayout.createSequentialGroup()
+                .addGap(292, 292, 292)
+                .addGroup(editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        editOptionsLayout.setVerticalGroup(
+            editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editOptionsLayout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(jLabel1)
+                .addGap(73, 73, 73)
+                .addGroup(editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(removeWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(249, Short.MAX_VALUE))
+        );
+
+        UI.add(editOptions, "card3");
+
+        addButton.setText("Add to Dictionary");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        newWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Word to add:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Meaning:");
+
+        newMeaning.setColumns(20);
+        newMeaning.setRows(5);
+        jScrollPane3.setViewportView(newMeaning);
+
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addWordWindowLayout = new javax.swing.GroupLayout(addWordWindow);
+        addWordWindow.setLayout(addWordWindowLayout);
+        addWordWindowLayout.setHorizontalGroup(
+            addWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addWordWindowLayout.createSequentialGroup()
+                .addGroup(addWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addWordWindowLayout.createSequentialGroup()
+                        .addGroup(addWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addWordWindowLayout.createSequentialGroup()
+                                .addGap(174, 174, 174)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(newWord, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(addWordWindowLayout.createSequentialGroup()
+                                .addGap(361, 361, 361)
+                                .addComponent(jLabel3)))
+                        .addGap(0, 250, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(RefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(TranslatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(GameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(AddWords, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(207, Short.MAX_VALUE))
+            .addGroup(addWordWindowLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addComponent(addButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(168, 168, 168))
         );
+        addWordWindowLayout.setVerticalGroup(
+            addWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addWordWindowLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(addWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(newWord, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(2, 2, 2)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(addWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addButton)
+                    .addComponent(jButton1))
+                .addGap(67, 67, 67))
+        );
+
+        UI.add(addWordWindow, "card4");
+
+        jScrollPane4.setViewportView(editTable);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("  Choose a word in a dictionary down below, and press the button to remove it");
+
+        removeButton.setText("Remove from Dictionary");
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeButtonActionPerformed(evt);
+            }
+        });
+
+        editSearchBar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        editSearchBar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                editSearchBarKeyReleased(evt);
+            }
+        });
+
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout removeWordWindowLayout = new javax.swing.GroupLayout(removeWordWindow);
+        removeWordWindow.setLayout(removeWordWindowLayout);
+        removeWordWindowLayout.setHorizontalGroup(
+            removeWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(removeWordWindowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeWordWindowLayout.createSequentialGroup()
+                .addContainerGap(84, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76))
+            .addGroup(removeWordWindowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(editSearchBar)
+                .addContainerGap())
+            .addGroup(removeWordWindowLayout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(removeButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(136, 136, 136))
+        );
+        removeWordWindowLayout.setVerticalGroup(
+            removeWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(removeWordWindowLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(editSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(removeWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+
+        UI.add(removeWordWindow, "card5");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Vietnamese");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("English");
+
+        engTransButton.setText("Translate to English");
+        engTransButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                engTransButtonActionPerformed(evt);
+            }
+        });
+
+        vietTransButton.setText("Translate to Vietnamese");
+        vietTransButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vietTransButtonActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Back");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        vietText.setColumns(20);
+        vietText.setRows(5);
+        jScrollPane5.setViewportView(vietText);
+
+        engText.setColumns(20);
+        engText.setRows(5);
+        jScrollPane6.setViewportView(engText);
+
+        javax.swing.GroupLayout translatorLayout = new javax.swing.GroupLayout(translator);
+        translator.setLayout(translatorLayout);
+        translatorLayout.setHorizontalGroup(
+            translatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(translatorLayout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(140, 140, 140))
+            .addGroup(translatorLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(engTransButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(vietTransButton)
+                .addGap(80, 80, 80))
+            .addGroup(translatorLayout.createSequentialGroup()
+                .addGroup(translatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(translatorLayout.createSequentialGroup()
+                        .addGap(363, 363, 363)
+                        .addComponent(jButton5))
+                    .addGroup(translatorLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        translatorLayout.setVerticalGroup(
+            translatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(translatorLayout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addGroup(translatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(translatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6))
+                .addGap(18, 18, 18)
+                .addGroup(translatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(engTransButton)
+                    .addComponent(vietTransButton))
+                .addGap(18, 18, 18)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        UI.add(translator, "card6");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Choose a Game:");
+
+        hangmanButton.setText("Hangman");
+        hangmanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hangmanButtonActionPerformed(evt);
+            }
+        });
+
+        MCButton.setText("Mutiple Choices");
+        MCButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MCButtonActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout gameCenterLayout = new javax.swing.GroupLayout(gameCenter);
+        gameCenter.setLayout(gameCenterLayout);
+        gameCenterLayout.setHorizontalGroup(
+            gameCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gameCenterLayout.createSequentialGroup()
+                .addGap(158, 158, 158)
+                .addComponent(MCButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
+                .addComponent(hangmanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(137, 137, 137))
+            .addGroup(gameCenterLayout.createSequentialGroup()
+                .addGap(347, 347, 347)
+                .addGroup(gameCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        gameCenterLayout.setVerticalGroup(
+            gameCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gameCenterLayout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jLabel8)
+                .addGap(60, 60, 60)
+                .addGroup(gameCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hangmanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MCButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(170, 170, 170))
+        );
+
+        UI.add(gameCenter, "card7");
+
+        getContentPane().add(UI);
+        UI.setBounds(0, 0, 800, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SearchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchBarKeyReleased
+    private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         // TODO add your handling code here:
-        DefaultTableModel tabl = (DefaultTableModel)jTable1.getModel();
+        DefaultTableModel tabl = (DefaultTableModel)words.getModel();
         TableRowSorter<DefaultTableModel> tabl1 = new TableRowSorter<>(tabl);
-        jTable1.setRowSorter(tabl1);
-        tabl1.setRowFilter(RowFilter.regexFilter(SearchBar.getText()));
+        words.setRowSorter(tabl1);
+        tabl1.setRowFilter(RowFilter.regexFilter(searchBar.getText()));
        
-    }//GEN-LAST:event_SearchBarKeyReleased
+    }//GEN-LAST:event_searchBarKeyReleased
 
-    private void AddWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWordsActionPerformed
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
-        AddWordsWindows addwin = new AddWordsWindows(manager);
-        addwin.setVisible(true);
-    }//GEN-LAST:event_AddWordsActionPerformed
+        UI.removeAll();
+        UI.add(editOptions);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Dictionary Editor");
+        
+    }//GEN-LAST:event_editButtonActionPerformed
 
-    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshButtonActionPerformed
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
         DefaultTableModel tableModel = manager.readTxtFile();
-        jTable1.setModel(tableModel);
-        //jTable1.getColumnModel().getColumn(1).setCellRenderer(new MultiLineTableCellRenderer());
-        
-    }//GEN-LAST:event_RefreshButtonActionPerformed
+        words.setModel(tableModel);
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
-    private void GameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GameButtonActionPerformed
+    private void gameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameButtonActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(gameCenter);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Game Center");
+    }//GEN-LAST:event_gameButtonActionPerformed
+
+    private void translatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translatorButtonActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(translator);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Translator");
+    }//GEN-LAST:event_translatorButtonActionPerformed
+
+    private void spellingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spellingButtonActionPerformed
+        // TODO add your handling code here:
+        if (currentWord == null) {
+            JOptionPane.showMessageDialog(null, "Please select a word from the table first!", "Error!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            apis.pronounce(currentWord);
+        }
+    }//GEN-LAST:event_spellingButtonActionPerformed
+
+    private void addWordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWordsButtonActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(addWordWindow);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Add a word");
+        
+    }//GEN-LAST:event_addWordsButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(dictionary);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Dictionary");
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+        String word = newWord.getText();
+        String meaning = newMeaning.getText();
+        manager.Addword(word, meaning);
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(editOptions);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Dictionary Editor");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void removeWordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeWordsButtonActionPerformed
+        // TODO add your handling code here:
+        editTable.setModel(manager.readTxtFile());
+        UI.removeAll();
+        UI.add(removeWordWindow);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Remove a word");
+    }//GEN-LAST:event_removeWordsButtonActionPerformed
+
+    private void editSearchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editSearchBarKeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel tabl = (DefaultTableModel)editTable.getModel();
+        TableRowSorter<DefaultTableModel> tabl1 = new TableRowSorter<>(tabl);
+        editTable.setRowSorter(tabl1);
+        tabl1.setRowFilter(RowFilter.regexFilter(editSearchBar.getText()));
+    }//GEN-LAST:event_editSearchBarKeyReleased
+
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = editTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a word from the table first!", "Error!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Object rowData = editTable.getValueAt(selectedRow, 0);
+            manager.removeWord(rowData.toString());
+        }
+    }//GEN-LAST:event_removeButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(editOptions);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Dictionary Editor");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void engTransButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_engTransButtonActionPerformed
+        // TODO add your handling code here:
+        engText.setText(apis.transVietToEn(vietText.getText()));
+    }//GEN-LAST:event_engTransButtonActionPerformed
+
+    private void vietTransButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vietTransButtonActionPerformed
+        // TODO add your handling code here:
+        vietText.setText(apis.transEnToViet(engText.getText()));
+    }//GEN-LAST:event_vietTransButtonActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(dictionary);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Dictionary");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void MCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MCButtonActionPerformed
         // TODO add your handling code here:
         gameManager.openMCGame();
-    }//GEN-LAST:event_GameButtonActionPerformed
+    }//GEN-LAST:event_MCButtonActionPerformed
 
-    private void TranslatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TranslatorButtonActionPerformed
+    private void hangmanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hangmanButtonActionPerformed
         // TODO add your handling code here:
-        apis.openTranslator();
-    }//GEN-LAST:event_TranslatorButtonActionPerformed
+        gameManager.openHangman();
+    }//GEN-LAST:event_hangmanButtonActionPerformed
 
-/*static class MultiLineTableCellRenderer extends DefaultTableCellRenderer {
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        if (c instanceof JLabel && value != null) {
-            JLabel label = (JLabel) c;
-            label.setText("<html>" + value.toString().replace("\\n", "<br>"));
-        }
-        return c;
-    }
-}*/
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(dictionary);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Dictionary");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -248,13 +774,53 @@ public class Window extends javax.swing.JFrame {
       
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddWords;
-    private javax.swing.JButton GameButton;
-    private javax.swing.JButton RefreshButton;
-    private javax.swing.JTextField SearchBar;
-    private javax.swing.JButton TranslatorButton;
+    private javax.swing.JButton MCButton;
+    private javax.swing.JPanel UI;
+    private javax.swing.JButton addButton;
+    private javax.swing.JPanel addWordWindow;
+    private javax.swing.JButton addWordsButton;
+    private javax.swing.JButton backButton;
+    private javax.swing.JPanel dictionary;
+    private javax.swing.JButton editButton;
+    private javax.swing.JPanel editOptions;
+    private javax.swing.JTextField editSearchBar;
+    private javax.swing.JTable editTable;
+    private javax.swing.JTextArea engText;
+    private javax.swing.JButton engTransButton;
+    private javax.swing.JButton gameButton;
+    private javax.swing.JPanel gameCenter;
+    private javax.swing.JButton hangmanButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTextArea meanings;
+    private javax.swing.JTextArea newMeaning;
+    private javax.swing.JTextField newWord;
+    private javax.swing.JButton refreshButton;
+    private javax.swing.JButton removeButton;
+    private javax.swing.JPanel removeWordWindow;
+    private javax.swing.JButton removeWordsButton;
+    private javax.swing.JTextField searchBar;
+    private javax.swing.JButton spellingButton;
+    private javax.swing.JPanel translator;
+    private javax.swing.JButton translatorButton;
+    private javax.swing.JTextArea vietText;
+    private javax.swing.JButton vietTransButton;
+    private javax.swing.JTable words;
     // End of variables declaration//GEN-END:variables
 }
 

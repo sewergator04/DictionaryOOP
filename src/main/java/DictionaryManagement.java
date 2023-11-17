@@ -29,8 +29,12 @@ public class DictionaryManagement {
     }
     
     public DefaultTableModel readTxtFile() {
-        
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             
@@ -59,36 +63,48 @@ public class DictionaryManagement {
         return model;
     }
     
-    public void AddWords(DefaultTableModel model) {
+    public void Addword(String word, String meaning) {
         try {
-            FileWriter fileWriter = new FileWriter(filePath, true);
-            // Iterate through the rows of the JTable and write data to the file
-            try (BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-                // Iterate through the rows of the JTable and write data to the file
-                for (int row = 0; row < model.getRowCount(); row++) {
-                    boolean isEmptyRow = true;
-                    for (int col = 0; col < model.getColumnCount(); col++) {
-                        String cellValue = (String) model.getValueAt(row, col);
-                        if (cellValue != null && !cellValue.trim().isEmpty()) {
-                            isEmptyRow = false;
-                            if (cellValue != null) {
-                                bufferedWriter.write(cellValue);
-                            }
-                            bufferedWriter.write("\t"); // Separate values with a tab or other delimiter
-                        }
-                    }
-                    if (!isEmptyRow) {
-                        bufferedWriter.newLine(); // Add a newline after each non-empty row
-                        definitions.add((String) model.getValueAt(row, 1));
-                        definitionIndex.put((String) model.getValueAt(row,0), indexes);
-                        indexes++;
-                    }
-                }
-            }
+            String result = word + "\t" + meaning.replace("\n","\\n");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+            writer.write(result);
+            writer.newLine();
+            definitions.add(meaning);
+            definitionIndex.put(word, indexes);
+            indexes++;
             JOptionPane.showMessageDialog(null,"Add words successfully!","Success!", JOptionPane.INFORMATION_MESSAGE);
+            writer.close();
         } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
+        
     }
     
+    public void removeWord(String key) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            ArrayList<String> keptlines = new ArrayList<>();
+            String line;
+            
+            while ((line = reader.readLine()) != null) {
+                
+                String[] data = line.split("\t");
+                if (!data[0].equals(key)) {
+                    keptlines.add(line);
+                    //System.out.println(line);
+                }
+            }
+            reader.close();
+            System.out.println(keptlines.size());
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            for (String keptline : keptlines) {
+                writer.write(keptline);
+                writer.newLine();
+            }
+            JOptionPane.showMessageDialog(null,"Remove word successfully!","Success!", JOptionPane.INFORMATION_MESSAGE);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
