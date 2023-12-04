@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Translator {
-    private static String key = "fb60a08dd73b4bca8e7e209272c73fa6";
+    private static String key = "529b943530e147bc8d31e5002057e352";
 
     // location, also known as region.
     // required if you're using a multi-service or regional (not global) resource. It can be found in the Azure portal on the Keys and Endpoint page.

@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 
 public class SpeechSynthesis {
     // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-    private String speechKey = "621aef8ad95c4b44888e4be768f498e2";
+    private String speechKey = "cffd58288b654f4dbf5c5770a5584066";
     private String speechRegion = "southeastasia";
 
     public void Synthesize(String text) throws InterruptedException, ExecutionException {

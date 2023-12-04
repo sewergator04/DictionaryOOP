@@ -1,7 +1,6 @@
 package HangmanbyNTT;
 
-import HangmanbyNTT.Keyboards;
-import HangmanbyNTT.Words;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,0 +1,118 @@
+apple	quả táo
+bird	con chim
+cow	con bò
+duck	con vịt
+cat	con mèo
+dog	con chó
+house	ngôi nhà
+book	cuốn sách
+computer	máy tính
+keyboard	bàn phím
+mouse	chuột
+pen	bút
+pencil	bút chì
+ink	mực
+bottle	lọ
+pencil sharpener	gọt bút chì
+pencil case	hộp bút
+notebook	vở ghi
+school	trường học
+class	lớp học
+desk	bàn học
+chair	ghế
+present	món quà	
+present	thuyết trình	
+present	hiện tại	
+pearl	ngọc trai	
+biscuit	bánh quy (Anh)	
+cookie	bánh quy (Mỹ)	
+religion	tôn giáo	
+answer (verb)	trả lời	
+answer (noun)	câu trả lời	love 	tình yêu	
+date (n)	ngày	
+date (v)	hẹn hò	
+swim	bơi lội	
+pool	hồ	
+swan	thiên nga	
+alligator	cá sấu
+envy	đố kỵ	
+knight	kỵ sĩ	
+king	nhà vua	
+queen	hoàng hậu	
+clown	hề	
+circus	gánh xiếc	
+monkey	khỉ	
+red	đỏ	
+green	xanh lá	
+blue	xanh dương	
+orange	cam	
+white	trắng	
+black	đen	
+yellow	vàng	
+athlete	vận động viên	
+sport	môn thể thao	
+football	bóng đá (Anh)	
+football	bóng bầu dục (Mỹ)	
+gem	đá quý	
+crystal	pha lê	
+diamond	kim cương	
+common	phổ biến	
+popular	nổi tiếng	
+delete	xóa	
+space	khoảng trống	
+space	không gian	
+alien	người ngoài hành tinh	
+object	vật thể	
+car	ô tô
+office	văn phòng	
+stationery	văn phòng phẩm	
+panda	gấu trúc	
+address	địa chỉ	
+head	đầu	
+shoulder	vai	
+arm	tay	
+strawberry	dâu tây	
+happy	hạnh phúc	
+sad	buồn	
+angry	giận dữ	
+confused	bối rối	
+personal	cá nhân (tính từ)	
+individual	cá nhân (danh từ)	
+private	tuyệt mật	
+public	công khai	
+pineapple	quả thơm	
+star	ngôi sao	
+comic	truyện tranh	
+moon	mặt trăng	
+sun	mặt trời	
+autumn	mùa thu	
+summer	mùa hè	
+spring	mùa xuân	
+winter	mùa đông	
+spring	suối nguồn	
+jester	chú hề (hoàng gia)	
+clown	chú hề	
+listen	lắng nghe	
+milk	sữa	
+paper	tờ giấy	
+crow	con quạ	
+eclipse	nhật thực	
+frog	con ếch	
+knife	con dao	
+drum	cái trống	
+phone	điện thoại	
+plushie	thú nhồi bông	
+stuff (v)	nhồi nhét	
+candy	kẹo	
+socks	đôi tất	
+holiday	kì nghỉ	
+weekends	các ngày cuối tuần	
+morning	buổi sáng	
+afternoon	buổi chiều	
+distract	phân tâm	
+penny	đồng xu	
+collection	bộ sưu tập	
+evil	xấu xa	
+wicked	xấu xa	
+cunning	xảo quyệt	
+faggot	địt mẹ bê đê

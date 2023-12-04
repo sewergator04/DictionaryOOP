@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Words {
-    private final String filePath = "C:\\Users\\Admin\\Documents\\GitHub\\DictionaryOOP\\dictionary.txt";
+    private final String filePath = "D:\\dictionary_Gradle\\dictionary.txt";
     private ArrayList<String> listWords;
 
     private String checkword(String word) {
