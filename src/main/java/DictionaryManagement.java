@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 /**
  *
  * @author Admin
@@ -22,10 +24,19 @@ public class DictionaryManagement {
     private int indexes = 0;
     private final ArrayList<String> definitions;
     private final HashMap<String, Integer> definitionIndex;
+    private int editIndex = -1;
     public DictionaryManagement(String filePath, ArrayList<String> definitions, HashMap<String, Integer> definitionIndex) {
         this.filePath = filePath;
         this.definitions = definitions;
         this.definitionIndex = definitionIndex;
+    }
+    
+    public int getEditIndex() {
+        return editIndex;
+    }
+    
+    public void setEditIndex(int editIndex) {
+        this.editIndex = editIndex;
     }
     
     public DefaultTableModel readTxtFile() {
@@ -35,7 +46,6 @@ public class DictionaryManagement {
                 return false;
             }
         };
-        
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             
             String line;
@@ -91,7 +101,6 @@ public class DictionaryManagement {
                 String[] data = line.split("\t");
                 if (!data[0].equals(key)) {
                     keptlines.add(line);
-                    //System.out.println(line);
                 }
             }
             reader.close();
@@ -101,10 +110,45 @@ public class DictionaryManagement {
                 writer.write(keptline);
                 writer.newLine();
             }
-            JOptionPane.showMessageDialog(null,"Remove word successfully!","Success!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, """
+                                                Remove word successfully!
+                                                Please click refresh to update the dictionary.""","Success!", JOptionPane.INFORMATION_MESSAGE);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void editWord(String changedLine) {
+        if (editIndex == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a word!", "Error!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try (RandomAccessFile file = new RandomAccessFile(filePath, "rw")) {
+            long position = getLineIndex(file);
+            file.seek(position);
+            byte[] byteArray = changedLine.getBytes(StandardCharsets.UTF_8);
+            file.write(byteArray);
+            long endOfFile = file.length();
+            file.setLength(file.getFilePointer());
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(null, """
+                                                Edit word successfully!
+                                                Please click refresh to update the dictionary.""","Success!", JOptionPane.INFORMATION_MESSAGE);
+        editIndex = -1;
+    }
+    
+    private long getLineIndex(RandomAccessFile file) throws IOException {
+        file.seek(0);
+        long result = 0;
+        int current = 0;
+        while (current < editIndex && file.readLine() != null) {
+            result = file.getFilePointer();
+            current++;
+        }
+        return result;
     }
 }

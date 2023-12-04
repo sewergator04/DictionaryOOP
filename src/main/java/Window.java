@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import HangmanbyNTT.RunGame;
 /**
  *
  * @author Admin
@@ -25,7 +24,8 @@ public class Window extends javax.swing.JFrame {
      * Creates new form Window
      */
     private final DictionaryManagement manager;
-    private final String filePath = "C:\\Users\\Admin\\Documents\\GitHub\\DictionaryOOP\\dictionary.txt";
+    private final String filePath = "D:\\dictionary_Gradle\\dictionary.txt";
+    private final Games gameManager;
     private final APIs apis;
     private final ArrayList<String> definitions;
     private final HashMap<String, Integer> definitionIndex;
@@ -34,6 +34,7 @@ public class Window extends javax.swing.JFrame {
         definitionIndex = new HashMap<>();
         definitions = new ArrayList<>();
         manager = new DictionaryManagement(filePath, definitions, definitionIndex);
+        gameManager = new Games();
         apis = new APIs();
         initComponents();
         Font customFont = new Font("Arial", Font.PLAIN, 20);
@@ -83,6 +84,7 @@ public class Window extends javax.swing.JFrame {
         removeWordsButton = new javax.swing.JButton();
         addWordsButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        editWordsButton = new javax.swing.JButton();
         addWordWindow = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
         newWord = new javax.swing.JTextField();
@@ -93,7 +95,7 @@ public class Window extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         removeWordWindow = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        editTable = new javax.swing.JTable();
+        removeTable = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         removeButton = new javax.swing.JButton();
         editSearchBar = new javax.swing.JTextField();
@@ -108,6 +110,23 @@ public class Window extends javax.swing.JFrame {
         vietText = new javax.swing.JTextArea();
         jScrollPane6 = new javax.swing.JScrollPane();
         engText = new javax.swing.JTextArea();
+        gameCenter = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        hangmanButton = new javax.swing.JButton();
+        MCButton = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        editWordWindow = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        editTable = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jButton4 = new javax.swing.JButton();
+        saveChangesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dictionary");
@@ -246,35 +265,42 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
+        editWordsButton.setText("Edit words");
+        editWordsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editWordsButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout editOptionsLayout = new javax.swing.GroupLayout(editOptions);
         editOptions.setLayout(editOptionsLayout);
         editOptionsLayout.setHorizontalGroup(
             editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editOptionsLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(addWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
-                .addComponent(removeWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83))
-            .addGroup(editOptionsLayout.createSequentialGroup()
-                .addGap(292, 292, 292)
-                .addGroup(editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(309, Short.MAX_VALUE)
+                .addGroup(editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(addWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(removeWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(289, 289, 289))
         );
         editOptionsLayout.setVerticalGroup(
             editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editOptionsLayout.createSequentialGroup()
-                .addGap(124, 124, 124)
+                .addGap(55, 55, 55)
                 .addComponent(jLabel1)
-                .addGap(73, 73, 73)
-                .addGroup(editOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(removeWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(addWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(removeWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(editWordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGap(95, 95, 95))
         );
 
         UI.add(editOptions, "card3");
@@ -351,7 +377,7 @@ public class Window extends javax.swing.JFrame {
 
         UI.add(addWordWindow, "card4");
 
-        jScrollPane4.setViewportView(editTable);
+        jScrollPane4.setViewportView(removeTable);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("  Choose a word in a dictionary down below, and press the button to remove it");
@@ -503,6 +529,165 @@ public class Window extends javax.swing.JFrame {
 
         UI.add(translator, "card6");
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Choose a Game:");
+
+        hangmanButton.setText("Hangman");
+        hangmanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hangmanButtonActionPerformed(evt);
+            }
+        });
+
+        MCButton.setText("Mutiple Choices");
+        MCButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MCButtonActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout gameCenterLayout = new javax.swing.GroupLayout(gameCenter);
+        gameCenter.setLayout(gameCenterLayout);
+        gameCenterLayout.setHorizontalGroup(
+            gameCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gameCenterLayout.createSequentialGroup()
+                .addGap(158, 158, 158)
+                .addComponent(MCButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
+                .addComponent(hangmanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(137, 137, 137))
+            .addGroup(gameCenterLayout.createSequentialGroup()
+                .addGap(347, 347, 347)
+                .addGroup(gameCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        gameCenterLayout.setVerticalGroup(
+            gameCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gameCenterLayout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jLabel8)
+                .addGap(60, 60, 60)
+                .addGroup(gameCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hangmanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MCButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(170, 170, 170))
+        );
+
+        UI.add(gameCenter, "card7");
+
+        editTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane7.setViewportView(editTable);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Choose a word from the table, then change its content below");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setText("Word:");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("Meaning:");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane8.setViewportView(jTextArea1);
+
+        jButton4.setText("Back");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        saveChangesButton.setText("Save changes");
+        saveChangesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveChangesButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout editWordWindowLayout = new javax.swing.GroupLayout(editWordWindow);
+        editWordWindow.setLayout(editWordWindowLayout);
+        editWordWindowLayout.setHorizontalGroup(
+            editWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editWordWindowLayout.createSequentialGroup()
+                .addGap(284, 284, 284)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editWordWindowLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(360, 360, 360))
+            .addGroup(editWordWindowLayout.createSequentialGroup()
+                .addGroup(editWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editWordWindowLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(editWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane7)
+                            .addComponent(jTextField1)))
+                    .addGroup(editWordWindowLayout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(jLabel7)
+                        .addGap(0, 152, Short.MAX_VALUE))
+                    .addGroup(editWordWindowLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane8)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editWordWindowLayout.createSequentialGroup()
+                .addGap(178, 178, 178)
+                .addComponent(saveChangesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(188, 188, 188))
+        );
+        editWordWindowLayout.setVerticalGroup(
+            editWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editWordWindowLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(editWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(editWordWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(saveChangesButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        UI.add(editWordWindow, "card8");
+
         getContentPane().add(UI);
         UI.setBounds(0, 0, 800, 600);
 
@@ -536,7 +721,11 @@ public class Window extends javax.swing.JFrame {
 
     private void gameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameButtonActionPerformed
         // TODO add your handling code here:
-        new RunGame();
+        UI.removeAll();
+        UI.add(gameCenter);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Game Center");
     }//GEN-LAST:event_gameButtonActionPerformed
 
     private void translatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translatorButtonActionPerformed
@@ -594,7 +783,7 @@ public class Window extends javax.swing.JFrame {
 
     private void removeWordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeWordsButtonActionPerformed
         // TODO add your handling code here:
-        editTable.setModel(manager.readTxtFile());
+        removeTable.setModel(manager.readTxtFile());
         UI.removeAll();
         UI.add(removeWordWindow);
         UI.repaint();
@@ -604,19 +793,19 @@ public class Window extends javax.swing.JFrame {
 
     private void editSearchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editSearchBarKeyReleased
         // TODO add your handling code here:
-        DefaultTableModel tabl = (DefaultTableModel)editTable.getModel();
+        DefaultTableModel tabl = (DefaultTableModel)removeTable.getModel();
         TableRowSorter<DefaultTableModel> tabl1 = new TableRowSorter<>(tabl);
-        editTable.setRowSorter(tabl1);
+        removeTable.setRowSorter(tabl1);
         tabl1.setRowFilter(RowFilter.regexFilter(editSearchBar.getText()));
     }//GEN-LAST:event_editSearchBarKeyReleased
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         // TODO add your handling code here:
-        int selectedRow = editTable.getSelectedRow();
+        int selectedRow = removeTable.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(null, "Please select a word from the table first!", "Error!", JOptionPane.ERROR_MESSAGE);
         } else {
-            Object rowData = editTable.getValueAt(selectedRow, 0);
+            Object rowData = removeTable.getValueAt(selectedRow, 0);
             manager.removeWord(rowData.toString());
         }
     }//GEN-LAST:event_removeButtonActionPerformed
@@ -648,6 +837,62 @@ public class Window extends javax.swing.JFrame {
         UI.revalidate();
         setTitle("Dictionary");
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void MCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MCButtonActionPerformed
+        // TODO add your handling code here:
+        gameManager.openMCGame();
+    }//GEN-LAST:event_MCButtonActionPerformed
+
+    private void hangmanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hangmanButtonActionPerformed
+        // TODO add your handling code here:
+        gameManager.openHangman();
+    }//GEN-LAST:event_hangmanButtonActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(dictionary);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Dictionary");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void editWordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editWordsButtonActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        editTable.setModel(manager.readTxtFile());
+        editTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int selectedRow = editTable.getSelectedRow();
+                    Object selectedWord = editTable.getValueAt(selectedRow, 0);
+                    manager.setEditIndex(selectedRow);
+                    jTextField2.setText((String) selectedWord);
+                    jTextArea1.setText(definitions.get(definitionIndex.get(jTextField2.getText())));
+                }
+            }
+        });
+        UI.add(editWordWindow);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Edit words");
+    }//GEN-LAST:event_editWordsButtonActionPerformed
+
+    private void saveChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveChangesButtonActionPerformed
+        // TODO add your handling code here:
+        String changedLine = jTextField2.getText() + "\t" + jTextArea1.getText().replace("\n", "\\n");
+        manager.editWord(changedLine);
+    }//GEN-LAST:event_saveChangesButtonActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        UI.removeAll();
+        UI.add(editOptions);
+        UI.repaint();
+        UI.revalidate();
+        setTitle("Dictionary Editor");
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     
     /**
@@ -688,6 +933,7 @@ public class Window extends javax.swing.JFrame {
       
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton MCButton;
     private javax.swing.JPanel UI;
     private javax.swing.JButton addButton;
     private javax.swing.JPanel addWordWindow;
@@ -698,31 +944,48 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JPanel editOptions;
     private javax.swing.JTextField editSearchBar;
     private javax.swing.JTable editTable;
+    private javax.swing.JPanel editWordWindow;
+    private javax.swing.JButton editWordsButton;
     private javax.swing.JTextArea engText;
     private javax.swing.JButton engTransButton;
     private javax.swing.JButton gameButton;
+    private javax.swing.JPanel gameCenter;
+    private javax.swing.JButton hangmanButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextArea meanings;
     private javax.swing.JTextArea newMeaning;
     private javax.swing.JTextField newWord;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton removeButton;
+    private javax.swing.JTable removeTable;
     private javax.swing.JPanel removeWordWindow;
     private javax.swing.JButton removeWordsButton;
+    private javax.swing.JButton saveChangesButton;
     private javax.swing.JTextField searchBar;
     private javax.swing.JButton spellingButton;
     private javax.swing.JPanel translator;
